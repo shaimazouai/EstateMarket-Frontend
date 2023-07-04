@@ -1,22 +1,19 @@
-import http from "../http-common";
+import httpMain from "../http-common";
 
-class OfferService {
-  getAll() {
-    return http.get("/getAllOffers");
-  }
+const getAllOffers = async () => {
+	try {
+		const response = await httpMain({
+			method: 'GET',
+			url: '/getAllOffers'
+		});
+		return response;
+	} catch (e) {
+		throw e;
+	}
+};
 
-  create(data) {
-    return http.post("/addOffer", data);
-  }
+const OfferService = {
+	getAllOffers
+};
 
-  delete(id) {
-    return http.delete(`/deleteOffer/${id}`);
-  }
-
-
-  findByName(name) {
-    return http.get(`/offers?name=${name}`);
-  }
-}
-
-export default new OfferService();
+export default OfferService();
